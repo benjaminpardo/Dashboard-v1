@@ -13,7 +13,8 @@
                         rounded
                         class="boton mr-0 "
                         color="deep-orange"
-                        to="/login"
+                        to="/"
+                        @click="logout()"
                       >
                         Cerrar Sesión
                       </v-btn>
@@ -99,6 +100,9 @@
 
   </v-col>
 
+  
+  
+
   <v-col>
     <v-card
           :elevation="hover ? 16 : 2"
@@ -114,6 +118,35 @@
            <v-container>
   <v-row no-gutters>
     <v-col md="6">
+        <router-link to="//intranet.ufro.cl/">
+          <img :src="require('../assets/intranet.png')" alt="" width="180" >
+        </router-link>
+    </v-col>
+    <v-col md="6">
+      <router-link to="//campusvirtual.ufro.cl/">
+      <img :src="require('../assets/campus.png')" alt="" width="180" height="60">
+      </router-link>
+    </v-col>
+  </v-row> 
+  <v-row no-gutters>
+    <v-col md="6">
+      <router-link to="//gmail.com">
+      <img :src="require('../assets/gmail.png')" alt="" width="180">
+      </router-link>
+    </v-col>
+    <v-col md="6">
+      <router-link to="//buda.com">
+      <img :src="require('../assets/buda.png')" alt="" width="200" height="67">
+      </router-link>
+    </v-col>
+  </v-row> 
+
+</v-container>
+ 
+        </v-card>
+  </v-col>
+  <!-- <v-row no-gutters>
+    <v-col md="6">
       <img :src="require('../assets/intranet.png')" alt="" width="180" >
     </v-col>
     <v-col md="6">
@@ -127,12 +160,8 @@
     <v-col md="6">
       <img :src="require('../assets/buda.png')" alt="" width="200" height="67">
     </v-col>
-  </v-row> 
+  </v-row>  -->
 
-</v-container>
- 
-        </v-card>
-  </v-col>
 
   <v-col>
     <v-card
@@ -143,8 +172,42 @@
           max-width="450"
         >
           <v-card-text class="font-weight-medium mt-12 text-center subtitle-1">
-            Noticias
+            Notificaciones
           </v-card-text>
+          <v-container>
+            <!-- Noticia 1 -->
+            <v-flex xs12>
+            <v-card color="white" class="black--text">
+              <v-card-title primary-title>
+                <div>
+                  <div class="" id="tituloNoticias">Gestión de Calidad</div>
+                  <span class="textoNoticias">Estimados alumnos, las notas actualizadas se encuentran en intranet...</span>
+                </div>
+                <v-btn id="botonNoticias" href="https://intranet.ufro.cl" flat dark>Revisar más</v-btn>
+              </v-card-title>
+              <v-card-actions>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+
+          <!-- Noticia 2 -->
+          <v-flex xs12>
+            <v-card color="white" class="black--text">
+              <v-card-title primary-title>
+                <div>
+                  <div class="" id="tituloNoticias">Desarrollo Web</div>
+                  <span class="textoNoticias">Nuevo correo de José Campos en ufromail. "Notas ingresadas..."</span>
+                </div>
+                <v-btn id="botonNoticias" href="https://intranet.ufro.cl" flat dark>Revisar más</v-btn>
+              </v-card-title>
+              <v-card-actions>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+          </v-container>
+          
+
+          
         </v-card>
   </v-col>
 </v-row>
@@ -242,7 +305,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import tareaService from "@/services/tarea.service";
 export default {
 data (){
@@ -291,6 +354,11 @@ data (){
       console.log(this.trash[index].id)
       this.trash.splice(index, 1);
     },
+    ...mapMutations(["setUser"]),
+    logout() {
+      this.setUser(null);
+      localStorage.clear();
+    },
   },
   computed: {
     ...mapState(["token","user"]),
@@ -306,5 +374,20 @@ data (){
   }
   .v-tab{
     text-transform: none !important;
+  }
+
+  #tituloNoticias{
+    font-size: 15px;
+  }
+  .textoNoticias{
+    font-size: 15px;
+    font-weight: 300;
+  }
+  .botonNoticias{
+    margin-top: 5px;
+  }
+  .v-card__title{
+    padding-bottom: 5px;
+    line-height:16px
   }
 </style>
